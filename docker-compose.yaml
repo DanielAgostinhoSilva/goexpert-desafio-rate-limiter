@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  desafio-rate-limiter-app:
+    container_name: desafio-rate-limiter-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - WEATHER_API_KEY=${WEATHER_API_KEY}
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
