@@ -1,11 +1,24 @@
 version: '3'
 
 services:
+  redisservice:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   desafio-rate-limiter-app:
     container_name: desafio-rate-limiter-app
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      redisservice:
+        condition: service_started
     environment:
       - WEATHER_API_KEY=${WEATHER_API_KEY}
     ports:
