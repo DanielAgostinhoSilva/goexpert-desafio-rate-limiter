@@ -16,11 +16,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - REDIS_ADDR=redisservice:6379
     depends_on:
       redisservice:
         condition: service_started
-    environment:
-      - WEATHER_API_KEY=${WEATHER_API_KEY}
     ports:
       - "8080:8080"
     volumes:

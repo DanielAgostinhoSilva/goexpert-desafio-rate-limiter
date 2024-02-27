@@ -8,8 +8,12 @@ import (
 
 type EnvConfig struct {
 	WebServerPort        string `mapstructure:"WEB_SERVER_PORT"`
-	MaxReqPerSecondToken int64  `mapstructure:"MAX_REQUEST_PER_SECOND_BY_TOKEN"`
-	MaxReqPerSecondIp    string `mapstructure:"MAX_REQUEST_PER_SECOND_BY_IP"`
+	MaxReqPerSecondToken int    `mapstructure:"MAX_REQUEST_PER_SECOND_BY_TOKEN"`
+	MaxReqPerSecondIp    int    `mapstructure:"MAX_REQUEST_PER_SECOND_BY_IP"`
+	BlockedTimePerSecond int    `mapstructure:"BLOCKED_TIME_PER_SECOND"`
+	RedisAddress         string `mapstructure:"REDIS_ADDR"`
+	RedisPassword        string `mapstructure:"REDIS_PASSWORD"`
+	RedisDB              int    `mapstructure:"REDIS_DB"`
 }
 
 func LoadConfig(filePath string) *EnvConfig {
@@ -26,6 +30,6 @@ func LoadConfig(filePath string) *EnvConfig {
 	if err != nil {
 		panic(err)
 	}
-	log.Println(fmt.Sprintf("Env initialized: %+v\n", cfg))
+	log.Println(fmt.Sprintf("Env initialized: %+v", cfg))
 	return cfg
 }
